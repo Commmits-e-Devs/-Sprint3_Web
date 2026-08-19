@@ -1,9 +1,10 @@
-import React from 'react';
-import './page.module.css'; // Importando o arquivo de estilos
+'use client'; // Necessário no Next.js para usar Hooks de estado
 
-function galeria() {
-  // Array com os dados das fotos
-  const fotos = [
+import React, { useState } from 'react';
+import styles from './page.module.css';
+
+function Galeria() {
+  const fotosIniciais = [
     { id: 1, url: 'https://picsum.photos/id/1018/400/300', titulo: 'Natureza' },
     { id: 2, url: 'https://picsum.photos/id/1015/400/300', titulo: 'Rio' },
     { id: 3, url: 'https://picsum.photos/id/1019/400/300', titulo: 'Paisagem' },
@@ -12,20 +13,50 @@ function galeria() {
     { id: 6, url: 'https://picsum.photos/id/1023/400/300', titulo: 'Aventura' }
   ];
 
+  // Estado para guardar o status de cada foto pelo ID
+  const [statusFotos, setStatusFotos] = useState({});
+
+  // Função para alternar entre ligado/desligado
+  const alternarStatus = (id) => {
+    setStatusFotos((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   return (
-    <div className="galeria-container">
+    <div className={styles.container}>
       <h2>Minha Galeria de Fotos</h2>
       
-      <div className="galeria-grid">
-        {/* O .map percorre o array e renderiza uma tag <img> para cada item */}
-        {fotos.map((foto) => (
-          <div key={foto.id} className="galeria-item">
-            <img src={foto.url} alt={foto.titulo} />
-          </div>
-        ))}
+      <div className={styles.grid}>
+        {fotosIniciais.map((foto) => {
+          const estaLigado = !!statusFotos[foto.id];
+
+          return (
+            <div key={foto.id} className={styles.card}>
+              <div className={styles.item}>
+                <img src={foto.url} alt={foto.titulo} />
+              </div>
+
+              {/* Área do Botão Liga/Desliga */}
+              <div className={`${styles.card} ${estaLigado ? styles.privado : ''}`}>
+                <span>{estaLigado ? 'Privado' : 'Público'}</span>
+                
+                <label className={styles.switch}>
+                  <input
+                    type="checkbox"
+                    checked={estaLigado}
+                    onChange={() => alternarStatus(foto.id)}
+                  />
+                  <span className={styles.slider}></span>
+                </label>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default galeria;
+export default Galeria;
