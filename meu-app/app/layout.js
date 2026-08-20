@@ -1,11 +1,11 @@
-import Galeria from './page.js';
-import './globals.css';
+import './globals.css'; // Mantenha essa linha se você tiver estilos globais
+
 export default function RootLayout({ children }) {
   return (
-    <html >
+    <html lang="pt-BR">
       <body>
+        {/* A propriedade 'children' é onde o seu page.js (e a sua Galeria) será encaixado */}
         {children}
-        <Galeria />
       </body>
     </html>
   );
