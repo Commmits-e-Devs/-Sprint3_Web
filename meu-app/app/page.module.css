@@ -87,15 +87,23 @@
 
 /* Estilo do botão Liga/Desliga na hora que ele esta se mexendo */
 .switch input:checked + .slider {
-  background-color: #4caf50;
+  background-color: #4c6faf;
 }
 
 .switch input:checked + .slider:before {
   transform: translateX(20px);
 }
+/* Efeito aplicado apenas quando a foto for para a área privada */
+.cardPrivado {
+  border: 2px dashed #ff4444; 
+  background-color: #fff0f0;  
+  opacity: 0.9;               
+  transform: scale(0.95);     
+  transition: all 0.3s ease;  
+}
 
-/* --- SUA NOVA CLASSE AQUI NO FINAL --- */
-.privado {
-  opacity: 0.4;
+/* Opcional: Deixa a imagem em preto e branco quando estiver privada */
+.cardPrivado img {
   filter: grayscale(100%);
+  transition: filter 0.3s ease;
 }
